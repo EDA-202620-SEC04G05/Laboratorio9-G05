@@ -26,8 +26,10 @@ Este repositorio forma parte del marco docente de estructura de datos y algoritm
 
 Los estudiantes editan esta sección para agregar sus nombres, correos electrónicos de Uniandes y especificar qué funcionalidad de proyecto implementarán.
 
-1.Sebastian David Moreno, sd.morenob1@uniandes.edu.co,202616523
+1.Sebastian David Moreno, sd.morenob1@uniandes.edu.co,202616523 
+
 2.Miguel Colmenares, m.colmenaresr2@uniandes.edu.co, 202616074
+
 3.Marvin Charris, m.charrism@uniandes.edu.co,202615633
 
 [Volver al inicio](#laboratorio-9)
