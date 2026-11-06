@@ -29,8 +29,9 @@ import time
 import os
 
 # TODO Realice la importación de priority queue
+from DataStructures.Priority_queue import priority_queue as pq
 # TODO Realice la importación de ArrayList (al) o SingleLinked (sl) como estructura de datos auxiliar para sus requerimientos
-
+from DataStructures.List import array_list as al
 
 data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/singapur_bus_routes/'
 
@@ -49,8 +50,8 @@ def new_logic():
         'routes_pq': None
     }
     
-    analyzer['stops'] = None #TODO completar la creación de la lista
-    analyzer['routes_pq'] = None #TODO completar la creación de la cola de prioridad
+    analyzer['stops'] = al.new_list() #TODO completar la creación de la lista
+    analyzer['routes_pq'] = pq.new_heap() #TODO completar la creación de la cola de prioridad
 
     return analyzer
 
@@ -111,6 +112,13 @@ def add_stop(analyzer, stop):
     #         'priority': stop['WD_FirstBus']
     #     }
     #     pq.insert(analyzer['pq'], element['priority'], element)
+    if str(stop['StopSequence']) == '1':
+        element = {
+            'route_id': stop['ServiceNo'],
+            'direction': stop['Direction'],
+            'priority': stop['WD_FirstBus']
+        }
+        pq.insert(analyzer['routes_pq'], element['priority'], element)
 
     return analyzer
 
@@ -164,5 +172,7 @@ def get_next_route(analyzer):
     # pq.delMin(analyzer['pq'])
     # return next_route
 
-    pass
-
+    next_route = pq.get_first_priority(analyzer['routes_pq'])
+    if next_route is not None:
+        pq.remove(analyzer['routes_pq'])
+    return next_route
