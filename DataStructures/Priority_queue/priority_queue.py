@@ -8,7 +8,7 @@ def default_compare_higher_value(father_node,child_node):
 def default_compare_lower_value(father_node,child_node):
     return pqe.get_priority(father_node) <= pqe.get_priority(child_node)
 
-def new_heap(is_min_pq):
+def new_heap(is_min_pq=True):
     heap = {
         "elements": al.new_list(),
         "size": 0,
@@ -52,4 +52,61 @@ def insert(my_heap, priority_value, value):
     al.add_last(my_heap["elements"], entry)
     my_heap["size"] += 1
     swim(my_heap, my_heap["size"])
+    return my_heap
+
+def sink(my_heap,pos):
+    elementos = my_heap["elements"]
+    n = size(my_heap)
+    while 2 * pos <= n:              
+        hijo_pos = 2 * pos          
+        if hijo_pos < n:          
+            izq= al.get_element(elementos,hijo_pos)
+            der = al.get_element(elementos,hijo_pos + 1)
+            if not priority(my_heap, izq,der):
+                hijo_pos += 1       
+        padre = al.get_element(elementos, pos)
+        hijo = al.get_element(elementos,hijo_pos)
+        if priority(my_heap, padre,hijo):
+            break                   
+        exchange(my_heap, pos,hijo_pos)
+        pos = hijo_pos
+        
+def remove(my_heap):
+    if is_empty(my_heap):
+        return None
+    elementos = my_heap["elements"]
+    primero = al.get_element(elementos,1)
+    exchange(my_heap,1,size(my_heap))
+    al.remove_last(elementos)
+    my_heap["size"] -= 1
+    sink(my_heap,1)
+    return pqe.get_value(primero)
+
+
+def get_first_priority(my_heap):
+    if is_empty(my_heap):
+        return None
+    primero = al.get_element(my_heap["elements"],1)
+    return pqe.get_value(primero)
+
+
+def is_present_value(my_heap,value):
+    elementos = my_heap["elements"]
+    for pos in range(1,size(my_heap) + 1):
+        entrada = al.get_element(elementos,pos)
+        if pqe.get_value(entrada) == value:
+            return pos
+    return -1
+
+
+def contains(my_heap,value):
+    return is_present_value(my_heap,value) != -1
+
+
+def improve_priority(my_heap,prioridad,value):
+    pos = is_present_value(my_heap,value)
+    if pos != -1:
+        entrada = al.get_element(my_heap["elements"],pos)
+        pqe.set_priority(entrada,prioridad)
+        swim(my_heap,pos)
     return my_heap
