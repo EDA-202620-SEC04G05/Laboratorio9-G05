@@ -1,7 +1,7 @@
 import sys
 import App.logic as logic
 # TODO Realice la importación de lista como estructura de datos auxiliar para la presentación de los resultados
-
+from DataStructures.List import array_list as al
 """
 La vista se encarga de la interacción con el usuario.
 Presenta el menu de opciones  y  por cada seleccion
